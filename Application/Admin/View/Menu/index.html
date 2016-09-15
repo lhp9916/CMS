@@ -73,7 +73,8 @@
                                 <tbody>
                                 <volist name="menus" id="menu">
                                     <tr>
-                                        <td><input size="4" type="text" name="" value=""/></td>
+                                        <td><input size="4" type="number" name="listorder[{$menu.menu_id}]"
+                                                   value="{$menu.listorder}"/></td>
                                         <td>{$menu.menu_id}</td>
                                         <td>{$menu.name}</td>
                                         <td>{$menu.m}</td>
@@ -95,6 +96,12 @@
                                     {$pageRes}
                                 </ul>
                             </nav>
+                            <div>
+                                <button id="button-listorder" type="button"
+                                        class="btn btn-primary dropdown-toggle"><span class="glyphicon glyphicon-plus"
+                                                                                      aria-hidden="true"></span>更新排序
+                                </button>
+                            </div>
                         </form>
                         <nav>
                             <ul class="pagination">

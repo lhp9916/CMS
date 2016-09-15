@@ -67,3 +67,20 @@ function todelete(url, data) {
             }
         }, 'json');
 }
+
+//排序
+$('#button-listorder').click(function () {
+    var data = $("#singcms-listorder").serializeArray();
+    postData = {};
+    $(data).each(function (i) {
+        postData[this.name] = this.value;
+    });
+    var url = SCOPE.listorder_url;
+    $.post(url, postData, function (result) {
+        if (result.status == 0) {
+            return dialog.error(result.message, result['data']['jump_url']);
+        } else if (result.status == 1) {
+            return dialog.success(result.message, result['data']['jump_url']);
+        }
+    }, "json");
+});
