@@ -101,4 +101,13 @@ class MenuModel extends Model
         ];
         return $this->_db->where('menu_id=' . $id)->save($data);
     }
+
+    public function getAdminMenus()
+    {
+        $condition = [
+            'status' => ['neq', -1],
+            'type' => 1,
+        ];
+        return $this->_db->where($condition)->order('listorder desc,menu_id desc')->select();
+    }
 }
