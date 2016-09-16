@@ -26,4 +26,15 @@ class ImageController extends CommonController
             return show(1, '上传成功', $rs);
         }
     }
+
+    public function kindupload()
+    {
+        $upload = D('UploadImage');
+        $rs = $upload->upload();
+        if ($rs === false) {
+            return showKind(1, '上传失败');
+        } else {
+            return showKind(0, $rs);
+        }
+    }
 }
