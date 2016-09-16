@@ -1,0 +1,40 @@
+<?php
+namespace Common\Model;
+
+use Think\Model;
+use Think\Upload;
+
+class UploadImageModel extends Model
+{
+    private $_uploadObj = '';
+    private $_uploadImageData = '';
+    const UPLOAD = 'upload';
+
+    public function __construct()
+    {
+        $this->_uploadObj = new Upload();
+        $this->_uploadObj->rootPath = './' . self::UPLOAD . '/';
+        $this->_uploadObj->subName = date(Y) . '/' . date(m) . '/' . date(d);
+    }
+
+    public function upload()
+    {
+        $res = $this->_uploadObj->upload();
+        if ($res) {
+            return '/' . self::UPLOAD . '/' . $res['imageFile']['savepath'] . $res['imageFile']['savename'];
+        } else {
+            return false;
+        }
+    }
+
+    public function imageUpload()
+    {
+        $res = $this->_uploadObj->upload();
+        if ($res) {
+            return '/' . self::UPLOAD . '/' . $res['file']['savepath'] . $res['file']['savename'];
+        } else {
+            return false;
+        }
+    }
+
+}
