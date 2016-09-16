@@ -110,4 +110,14 @@ class MenuModel extends Model
         ];
         return $this->_db->where($condition)->order('listorder desc,menu_id desc')->select();
     }
+
+    //前端导航
+    public function getBarMenus()
+    {
+        $condition = [
+            'status' => ['neq', -1],
+            'type' => 0,
+        ];
+        return $this->_db->where($condition)->order('listorder desc,menu_id desc')->select();
+    }
 }
