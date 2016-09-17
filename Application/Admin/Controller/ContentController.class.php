@@ -2,11 +2,31 @@
 namespace Admin\Controller;
 
 use \Think\Controller;
+use Think\Think;
 
 class ContentController extends CommonController
 {
     public function index()
     {
+        $condition = [];
+        $title = $_GET['title'];
+        if ($title) {
+            $condition['title'] = $title;
+        }
+        if ($_GET['catid']) {
+            $condition['catid'] = intval($_GET['catid']);
+        }
+
+        $page = $_REQUEST['p'] ? $_REQUEST['p'] : 1;
+        $pageSize = 5;
+
+        $news = D('News')->getNews($condition, $page, $pageSize);
+        $conut = D('News')->getNewsCount($condition);
+        $res = new \Think\Page($conut, $pageSize);
+        $pagetRes = $res->show();
+        $this->assign('pageRes', $pagetRes);
+        $this->assign('news', $news);
+        $this->assign('webSiteMenu', D('Menu')->getBarMenus());
         $this->display();
     }
 
