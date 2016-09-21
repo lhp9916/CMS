@@ -140,4 +140,30 @@ class ContentController extends CommonController
             return show(0, '没有提交内容');
         }
     }
+
+    public function listorder()
+    {
+        $errors = [];
+        $listorder = $_POST['listorder'];
+        $jumpUrl = $_SERVER['HTTP_REFERER'];
+        try {
+            if ($listorder) {
+                foreach ($listorder as $newsid => $v) {
+                    //update
+                    $id = D('News')->updateNewsListorder($newsid, $v);
+                    if ($id === false) {
+                        $errors[] = $newsid;
+                    }
+                }
+                if ($errors) {
+                    return show(0, '排序失败-' . implode(',', $errors), ['jump_url' => $jumpUrl]);
+                } else {
+                    return show(1, '排序成功', ['jump_url' => $jumpUrl]);
+                }
+            }
+        } catch (Exception $e) {
+            return show(0, $e->getMessage());
+        }
+        return show(0, '排序失败', ['jump_url' => $jumpUrl]);
+    }
 }

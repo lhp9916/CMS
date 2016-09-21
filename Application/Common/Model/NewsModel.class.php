@@ -73,13 +73,22 @@ class NewsModel extends Model
     public function updateStatusById($id, $status)
     {
         if (!is_numeric($id)) {
-            throw new Exception('id不能为数字');
+            throw new Exception('id不为数字');
         }
         if (!is_numeric($status)) {
-            throw new Exception('status不能为数字');
+            throw new Exception('status不为数字');
         }
         $data['status'] = $status;
         return $this->_db->where('news_id=' . $id)->save($data);
+    }
+
+    public function updateNewsListorder($newsID, $listorder)
+    {
+        if (!is_numeric($newsID)) {
+            throw new Exception('id不为数字');
+        }
+        $data = ['listorder' => intval($listorder)];
+        return $this->_db->where('news_id=' . $newsID)->save($data);
     }
 
 }
