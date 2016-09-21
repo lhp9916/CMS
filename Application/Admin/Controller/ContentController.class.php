@@ -118,4 +118,26 @@ class ContentController extends CommonController
             return show(0, $e->getMessage());
         }
     }
+
+    public function setStatus()
+    {
+        if ($_POST) {
+            $id = $_POST['id'];
+            $status = $_POST['status'];
+            if (!$id) {
+                return show(0, 'ID不存在');
+            }
+            try {
+                $res = D('News')->updateStatusById($id, $status);
+                if ($res) {
+                    return show(1, '操作成功');
+                }
+                return show(0, '操作失败');
+            } catch (Exception $e) {
+                return show(0, '系统发生异常');
+            }
+        } else {
+            return show(0, '没有提交内容');
+        }
+    }
 }

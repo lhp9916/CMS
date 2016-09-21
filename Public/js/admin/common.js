@@ -84,3 +84,25 @@ $('#button-listorder').click(function () {
         }
     }, "json");
 });
+
+$('.singcms-table #singcms-on-off').on('click', function () {
+    var id = $(this).attr('attr-id');
+    var status = $(this).attr('attr-status');
+    var url = SCOPE.set_status_url;
+
+    data = {};
+    data['id'] = id;
+    data['status'] = status;
+    layer.open({
+        type: 0,
+        title: '是否提交?',
+        btn: ['yes', 'no'],
+        icon: 3,
+        closeBtn: 2,
+        content: "是否确定更改状态",
+        scrollbar: true,
+        yes: function () {
+            todelete(url, data);
+        }
+    });
+});

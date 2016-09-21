@@ -70,4 +70,16 @@ class NewsModel extends Model
         return $this->_db->where('news_id=' . $id)->save($data);
     }
 
+    public function updateStatusById($id, $status)
+    {
+        if (!is_numeric($id)) {
+            throw new Exception('id不能为数字');
+        }
+        if (!is_numeric($status)) {
+            throw new Exception('status不能为数字');
+        }
+        $data['status'] = $status;
+        return $this->_db->where('news_id=' . $id)->save($data);
+    }
+
 }
