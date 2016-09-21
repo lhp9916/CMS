@@ -2,6 +2,7 @@
 namespace Admin\Controller;
 
 use \Think\Controller;
+use Think\Exception;
 use Think\Think;
 
 class ContentController extends CommonController
@@ -48,6 +49,12 @@ class ContentController extends CommonController
             if (!isset($_POST['content']) || !$_POST['content']) {
                 return show(0, '内容不存在');
             }
+
+            if ($_POST['news_id']) {
+                //update
+                return $this->save($_POST);
+            }
+
             $newsId = D("News")->insert($_POST);
             if ($newsId) {
                 $newsContent['news_id'] = $newsId;
@@ -70,6 +77,45 @@ class ContentController extends CommonController
             $this->assign('titleFontColor', $titleFontColor);
             $this->assign('copyFrom', $copyFrom);
             $this->display();
+        }
+    }
+
+    public function edit()
+    {
+        $newsId = $_GET['id'];
+        if (!$newsId) {
+            $this->redirect('/admin.php?c=content');
+        }
+        $news = D('News')->find($newsId);
+        if (!$news) {
+            $this->redirect('/admin.php?c=content');
+        }
+        $newsContent = D('NewsContent')->find($newsId);
+        if ($newsContent) {
+            $news['content'] = $newsContent['content'];
+        }
+        $webSiteMenu = D("Menu")->getBarMenus();
+        $this->assign('webSiteMenu', $webSiteMenu);
+        $this->assign('titleFontColor', C('TITLE_FONT_COLOR'));
+        $this->assign('copyFrom', C('COPY_FROM'));
+        $this->assign('news', $news);
+        $this->display();
+    }
+
+    public function save($data)
+    {
+        $newsId = $data['news_id'];
+        unset($data['news_id']);
+        try {
+            $id = D('News')->updateById($newsId, $data);
+            $newsContentData['content'] = $data['content'];
+            $condId = D("NewsContent")->updateNewsById($newsId, $newsContentData);
+            if ($id === false || $condId === false) {
+                return show(0, '更新失败');
+            }
+            return show(1, '更新成功');
+        } catch (Exception $e) {
+            return show(0, $e->getMessage());
         }
     }
 }

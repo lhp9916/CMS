@@ -1,6 +1,7 @@
 <?php
 namespace Common\Model;
 
+use Think\Exception;
 use Think\Model;
 
 class NewsModel extends Model
@@ -50,6 +51,23 @@ class NewsModel extends Model
             $condition['catid'] = intval($data['catid']);
         }
         return $this->_db->where($condition)->count();
+    }
+
+    public function find($id)
+    {
+        $data = $this->_db->where('news_id=' . $id)->find();
+        return $data;
+    }
+
+    public function updateById($id, $data)
+    {
+        if (!$id || !is_numeric($id)) {
+            throw new Exception('ID不合法');
+        }
+        if (!$data || !is_array($data)) {
+            throw new Exception('更新数据不合法');
+        }
+        return $this->_db->where('news_id=' . $id)->save($data);
     }
 
 }
