@@ -91,4 +91,19 @@ class NewsModel extends Model
         return $this->_db->where('news_id=' . $newsID)->save($data);
     }
 
+    /**
+     * newsId数组 返回结果
+     * @param $newsIds
+     * @return mixed
+     * @throws Exception
+     */
+    public function getNewsByNewsIdIn($newsIds)
+    {
+        if (!is_array($newsIds)) {
+            throw new Exception('参数不合法');
+        }
+        $data = ['news_id' => array('in', implode(',', $newsIds))];
+        return $this->_db->where($data)->select();
+    }
+
 }

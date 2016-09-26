@@ -64,6 +64,7 @@
                             <table class="table table-bordered table-hover singcms-table">
                                 <thead>
                                 <tr>
+                                    <th id="signcms-checkbox-all" width="10"><input type="checkbox"/></th>
                                     <th width="14">排序</th>
                                     <th>id</th>
                                     <th>标题</th>
@@ -78,6 +79,7 @@
                                 <tbody>
                                 <volist name="news" id="new">
                                 <tr>
+                                    <td><input type="checkbox" name="pushcheck" value="{$new.news_id}"/></td>
                                     <td><input size="4" type="number" name="listorder[{$new.news_id}]"
                                                value="{$new.listorder}"/></td>
                                     <!--6.7-->
@@ -120,6 +122,15 @@
                                 </button>
                             </div>
                         </form>
+                        <div class="button-group">
+                            <select class="form-control" name="position_id" id="select-push">
+                                <option value="0">请选择推荐位进行推荐</option>
+                                <foreach name="Positions" item="position">
+                                    <option value="{$position.id}">{$position.name}</option>
+                                </foreach>
+                            </select>
+                            <button id="singcms-push" type="button" class="btn btn-primary">推送</button>
+                        </div>
 
                     </div>
                 </div>
