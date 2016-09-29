@@ -115,7 +115,7 @@ class MenuModel extends Model
     public function getBarMenus()
     {
         $condition = [
-            'status' => ['neq', -1],
+            'status' => 1,
             'type' => 0,
         ];
         return $this->_db->where($condition)->order('listorder desc,menu_id desc')->select();
