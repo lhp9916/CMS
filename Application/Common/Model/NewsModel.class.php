@@ -106,4 +106,27 @@ class NewsModel extends Model
         return $this->_db->where($data)->select();
     }
 
+    public function select($data, $limit)
+    {
+        $list = $this->_db->where($data)
+            ->order('listorder desc,news_id desc')
+            ->limit(0, $limit)
+            ->select();
+        return $list;
+    }
+
+    /**
+     * 获取行的数据
+     * @param array $data
+     * @param int $limit
+     * @return mixed
+     */
+    public function getRank($data = [], $limit = 100)
+    {
+        $list = $this->_db->where($data)
+            ->order('count  desc,news_id desc')
+            ->limit(0, $limit)
+            ->select();
+        return $list;
+    }
 }

@@ -24,7 +24,7 @@ $navs = D("Menu")->getBarMenus();
             </div>
             <ul class="nav navbar-nav navbar-left">
                 <li><a href="/"
-                    <if condition="$result['catid'] eq 0">class="curr"</if>
+                    <if condition="$result['catId'] eq 0">class="curr"</if>
                     >首页</a></li>
                 <foreach name="navs" item="vo">
                     <li><a href="/index.php?c=cat@id={$vo.menu_id}"
