@@ -29,6 +29,15 @@ class DetailController extends CommonController
             'catId' => $news['catid'],
             'news' => $news,
         ]);
-        $this->display();
+        $this->display("Detail/index");
+    }
+
+    //文章预览
+    public function view()
+    {
+        if (!getLoginUsername()) {
+            $this->error('请先登录');
+        }
+        $this->index();
     }
 }
