@@ -1,1 +1,1 @@
-a:3:{s:5:"title";s:9:"cms title";s:8:"keywords";s:12:"cms keywords";s:11:"description";s:9:"cms1 desc";}
+a:3:{s:5:"title";s:7:"lhp cms";s:8:"keywords";s:13:"资讯 科技";s:11:"description";s:27:"这是一个资讯类网站";}
