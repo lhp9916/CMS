@@ -1,3 +1,5 @@
 .idea/
 *.log
 Cache/
+.vagrant/
+upload/

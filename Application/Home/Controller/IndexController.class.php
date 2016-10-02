@@ -37,4 +37,12 @@ class IndexController extends CommonController
     {
         $this->index('buildHtml');
     }
+
+    public function crontab_build_html()
+    {
+        if (APP_CRONTAB != 1) {
+            die('the file must exec by crontab.php');
+        }
+        $this->index('buildHtml');
+    }
 }
