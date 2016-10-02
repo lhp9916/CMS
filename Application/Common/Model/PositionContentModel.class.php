@@ -17,8 +17,8 @@ class PositionContentModel extends Model
         return $this->_db->add($data);
     }
 
-    public function select($condition = array())
+    public function select($condition = array(), $limit)
     {
-        return $this->_db->where($condition)->select();
+        return $this->_db->where($condition)->limit(0, $limit)->select();
     }
 }
