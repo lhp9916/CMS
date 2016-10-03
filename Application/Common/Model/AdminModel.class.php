@@ -23,4 +23,15 @@ class AdminModel extends Model
         $rs = $this->_db->where('username="' . $username . '"')->find();
         return $rs;
     }
+
+    public function getLastLoginUsers()
+    {
+        $time=mktime(0,0,0,date('m',date('d'),date('Y')));
+        $data = [
+            'status'=>1,
+            'lastlogintime'=>array("gt",$time),
+        ];
+        $res = $this->_db->where($data)->count();
+        return $res['tp_count'];
+    }
 }
